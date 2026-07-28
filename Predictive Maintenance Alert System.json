@@ -1,0 +1,376 @@
+{
+  "name": "Predictive Maintenance Alert System",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -928,
+        -176
+      ],
+      "id": "f8a9ec68-c8d7-4822-a27c-919323bb9603",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "19fhWyAKh-gGtYHV_l4JGKAODysLCHFQGeS1XffwvQdo",
+          "mode": "list",
+          "cachedResultName": "Predictive Maintenance Sensor Database",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19fhWyAKh-gGtYHV_l4JGKAODysLCHFQGeS1XffwvQdo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Oil_Well_Sensor_Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/19fhWyAKh-gGtYHV_l4JGKAODysLCHFQGeS1XffwvQdo/edit#gid=0"
+        },
+        "options": {
+          "dataLocationOnSheet": {
+            "values": {
+              "rangeDefinition": "detectAutomatically"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -592,
+        -176
+      ],
+      "id": "719eb9ca-52ed-48da-9fb7-49d325c16dec",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "742KxRLReo9DbmSs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1E3uYl4OeJZATeBlIQc6snC3MQMVfg30QN8tPGrVTlyc",
+          "mode": "list",
+          "cachedResultName": "Maintenance Incident Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E3uYl4OeJZATeBlIQc6snC3MQMVfg30QN8tPGrVTlyc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Incident_Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1E3uYl4OeJZATeBlIQc6snC3MQMVfg30QN8tPGrVTlyc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Incident_Time": "={{ $now }}",
+            "Well_ID": "={{ $json.Well }}",
+            "Equipment": "={{ $json.Equipment }}",
+            "Temperature": "={{ $json.Temperature }}",
+            "Pressure": "={{ $json.Pressure }}",
+            "Vibration": "={{ $json.Vibration }}",
+            "Flow_Rate": "={{ $json.Flow_Rate }}",
+            "Recommendation": "={{ $json.Recommendation }}",
+            "Alert_Status": "Logged"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Incident_Time",
+              "displayName": "Incident_Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Well_ID",
+              "displayName": "Well_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Equipment",
+              "displayName": "Equipment",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Temperature",
+              "displayName": "Temperature",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Pressure",
+              "displayName": "Pressure",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Vibration",
+              "displayName": "Vibration",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Flow_Rate",
+              "displayName": "Flow_Rate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Recommendation",
+              "displayName": "Recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Alert_Status",
+              "displayName": "Alert_Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        336,
+        -256
+      ],
+      "id": "c7f21765-ac76-40cd-8326-9013ab774600",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "742KxRLReo9DbmSs",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "officialestwrites@gmail.com",
+        "subject": "={{ \"🚨 Critical Maintenance Alert | \" + $json.Well_ID + \" | \" + $json.Equipment }}",
+        "message": "=Equipment Maintenance Alert\n\nWell:\n{{$json.Well_ID}}\n\nEquipment:\n{{$json.Equipment}}\n\nRisk Level:\n{{$json.Risk_Level}}\n\nProblem:\n{{$json.Failure_Reason}}\n\nTemperature:\n{{$json.Temperature_C}} °C\n\nVibration:\n{{$json.Vibration_mm_s}} mm/s\n\nFlow Rate:\n{{$json.Flow_Rate_bpd}} bpd\n\nImmediate inspection recommended.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        480,
+        -400
+      ],
+      "id": "c8d38967-b6fa-4d88-8b81-4cc09fc8c512",
+      "name": "Send a message",
+      "webhookId": "fd973f34-0561-4ef3-878d-84cefac43ab0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "BkrtIudhIQ9efjLS",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfor (const item of items) {\n\n  const temp = Number(item.json.Temperature_C);\n  const pressure = Number(item.json.Pressure_psi);\n  const vibration = Number(item.json.Vibration_mm_s);\n  const flow = Number(item.json.Flow_Rate_bpd);\n\n  let risk = \"Normal\";\n  let reason = \"Equipment operating within normal limits.\";\n\n  if (temp >= 90) {\n    risk = \"Critical\";\n    reason = \"High temperature detected. Possible overheating.\";\n  } else if (vibration >= 5) {\n    risk = \"Critical\";\n    reason = \"High vibration detected. Possible mechanical failure.\";\n  } else if (flow <= 400) {\n    risk = \"Critical\";\n    reason = \"Low production flow detected.\";\n  } else if (pressure >= 3500) {\n    risk = \"Warning\";\n    reason = \"Pressure above safe operating range.\";\n  }\n\n  item.json.Risk_Level = risk;\n  item.json.Failure_Reason = reason;\n}\n\nreturn items;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        -96
+      ],
+      "id": "9a26e151-0357-4f70-b805-cd277757ad38",
+      "name": "Equipment Health Analysis"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "cefd2f11-3699-497d-9cca-7df51711a7ce",
+              "leftValue": "={{ $json.Risk_Level }}",
+              "rightValue": "Critical",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -160,
+        -336
+      ],
+      "id": "7919b45b-ae09-4a9f-8770-253906f6d642",
+      "name": "Critical Risk Check"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3.1-flash-lite",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3.1-flash-lite"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are an oil and gas maintenance engineer.\n\nAnalyze this equipment issue.\n\nWell ID:\n{{$json.Well_ID}}\n\nEquipment:\n{{$json.Equipment}}\n\nTemperature:\n{{$json.Temperature_C}}\n\nPressure:\n{{$json.Pressure_psi}}\n\nVibration:\n{{$json.Vibration_mm_s}}\n\nFlow Rate:\n{{$json.Flow_Rate_bpd}}\n\nRisk Level:\n{{$json.Risk_Level}}\n\nFailure Reason:\n{{$json.Failure_Reason}}\n\nProvide:\n\n1. Possible cause\n2. Recommended maintenance action\n3. Priority (High, Medium, Low)\n\nKeep the response under 120 words."
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        48,
+        -416
+      ],
+      "id": "5eb67ce4-f6cf-4014-8e68-7b8f4582eacc",
+      "name": "Message a model",
+      "retryOnFail": true,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "9hyF8ZXWGU7qXiV3",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Equipment Health Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Equipment Health Analysis": {
+      "main": [
+        [
+          {
+            "node": "Critical Risk Check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Critical Risk Check": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f05e14e4-f908-4804-95c9-f8bc41ffd6c2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5c8ff4d7db7240c989945752319ed47eb207ea9ac5cbdd3c580767cc051dafda"
+  },
+  "nodeGroups": [],
+  "id": "ZFbg7DxnNlezg3rS",
+  "tags": []
+}
